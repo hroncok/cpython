@@ -373,10 +373,7 @@ def parse_makefile(fn, g=None):
                     done[n] = item = ""
                 if found:
                     after = value[m.end():]
-                    value = value[:m.start()]
-                    if item.strip() not in value:
-                        value += item
-                    value += after
+                    value = value[:m.start()] + item + after
                     if "$" in after:
                         notdone[name] = value
                     else:
