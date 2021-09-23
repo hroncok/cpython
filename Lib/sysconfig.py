@@ -58,6 +58,9 @@ _INSTALL_SCHEMES = {
         },
     }
 
+# backup the original posix_prefix as rpm_prefix
+# RPM packages use it and we need to be able to read it even when changed
+_INSTALL_SCHEMES['rpm_prefix'] = _INSTALL_SCHEMES['posix_prefix']
 
 if (not (hasattr(sys, 'real_prefix') or
     sys.prefix != sys.base_prefix) and
