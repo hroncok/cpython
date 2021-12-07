@@ -294,7 +294,6 @@ def _expand_vars(scheme, vars):
     res = {}
     if vars is None:
         vars = {}
-    _config_vars = get_config_vars()
 
     # when we are not in a virtual environment or an RPM build
     # we change '/usr/'  to '/usr/local'
