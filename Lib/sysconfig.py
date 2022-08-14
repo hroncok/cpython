@@ -113,14 +113,14 @@ if (not (hasattr(sys, 'real_prefix') or
         _INSTALL_SCHEMES['posix_prefix'] = {
             'stdlib': '{installed_base}/{platlibdir}/python{py_version_short}',
             'platstdlib': '{platbase}/{platlibdir}/python{py_version_short}',
-            'purelib': '{base}/local/lib/python{py_version_short}/site-packages',
-            'platlib': '{platbase}/local/{platlibdir}/python{py_version_short}/site-packages',
+            'purelib': '{local_base}/lib/python{py_version_short}/site-packages',
+            'platlib': '{local_platbase}/{platlibdir}/python{py_version_short}/site-packages',
             'include':
                 '{installed_base}/include/python{py_version_short}{abiflags}',
             'platinclude':
                 '{installed_platbase}/include/python{py_version_short}{abiflags}',
-            'scripts': '{base}/local/bin',
-            'data': '{base}/local',
+            'scripts': '{local_base}/bin',
+            'data': '{local_base}',
         }
 
 # NOTE: site.py has copy of this function.
@@ -672,6 +672,11 @@ def get_config_vars(*args):
         _CONFIG_VARS['platbase'] = _EXEC_PREFIX
         _CONFIG_VARS['projectbase'] = _PROJECT_BASE
         _CONFIG_VARS['platlibdir'] = sys.platlibdir
+
+        # https://fedoraproject.org/wiki/Changes/Making_sudo_pip_safe
+        _CONFIG_VARS['local_base'] = _PREFIX + '/local'
+        _CONFIG_VARS['local_platbase'] = _EXEC_PREFIX + '/local'
+
         try:
             _CONFIG_VARS['abiflags'] = sys.abiflags
         except AttributeError:

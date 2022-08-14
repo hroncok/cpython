@@ -335,6 +335,11 @@ class install(Command):
         self.config_vars['base'] = self.install_base
         self.config_vars['platbase'] = self.install_platbase
 
+        # Now we save all the remaining string sysconfig config_vars
+        for config_var, value in sysconfig.get_config_vars().items():
+            if config_var not in self.config_vars and isinstance(value, str):
+                self.config_vars[config_var] = value
+
         if DEBUG:
             from pprint import pprint
             print("config vars:")
